@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" >
+
+</head>
+<body>
+    <h2>Product List</h2>
+     <table class="table table-hover">  <!-- "table table-hover" is used to get space in between the headings in the table --> 
+        <thead>  <!-- table head -->
+            <tr>  <!-- table row -->
+                <th>ID</th>  <!-- table heading -->
+                <th>Title</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Discount percentage</th>
+                <th>Rating</th>
+                <th>Stock</th>
+                <th>Brand</th>
+                <th>Category</th>
+                <th>Thumbnail</th>
+            </tr>
+        </thead>
+        <tbody id="tableRows"></tbody>
+    </table>
+
+    <script>
+        fetch('https://dummyjson.com/products')
+        .then(response=>response.json())
+        .then(data=>{
+            const products=data.products;
+            const tableBody=document.getElementById('tableRows');
+
+            products.forEach(product=>{
+               const row=`
+               <tr>
+                <td>${product.id}</td>
+                <td>${product.title}</td>
+                <td>${product.description}</td>
+                <td>${product.price}</td>
+                <td>${product.discountPercentage}</td>
+                <td>${product.rating}</td>
+                <td>${product.stock}</td>
+                <td>${product.brand}</td>
+                <td>${product.category}</td>
+                <td><img src="${product.thumbnail}" width="50"></td>
+        
+                </tr>
+                `;
+                tableBody.innerHTML+=row;
+            })
+        })
+        .catch(error=>console.log("error",error))
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+</body>
+</html>
